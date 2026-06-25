@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Task Manager | Kush Patel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --orange:#FF6B2B; --purple:#7C3AED; --blue:#2563EB;
+    --green:#22C55E; --red:#EF4444;
+    --bg:#0A0A0A; --bg-2:#111111; --bg-3:#1A1A1A;
+    --text:#F5F5F5; --text-muted:#888888;
+    --border:rgba(255,255,255,0.08); --glass:rgba(255,255,255,0.04);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Inter',sans-serif; background:var(--bg); color:var(--text);
+    min-height:100vh; padding:36px 20px 80px;
+    background-image:
+      radial-gradient(circle at 10% 0%, rgba(37,99,235,0.10), transparent 40%),
+      radial-gradient(circle at 90% 10%, rgba(255,107,43,0.10), transparent 40%);
+  }
+  .app{max-width:900px; margin:0 auto;}
+  .back-link{
+    display:inline-flex; align-items:center; gap:6px; font-size:13px;
+    color:var(--text-muted); margin-bottom:24px; text-decoration:none; transition:color .2s;
+  }
+  .back-link:hover{color:var(--orange);}
+
+  .badge-live{
+    display:inline-flex; align-items:center; gap:6px;
+    font-size:11px; font-weight:600; letter-spacing:.08em; text-transform:uppercase;
+    color:var(--green); background:rgba(34,197,94,0.1); border:1px solid rgba(34,197,94,0.25);
+    padding:5px 12px; border-radius:100px; margin-bottom:14px;
+  }
+  .dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+  .topbar{
+    display:flex; align-items:flex-start; justify-content:space-between;
+    margin-bottom:28px; flex-wrap:wrap; gap:16px;
+  }
+  .brand h1{
+    font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:26px; margin-bottom:6px;
+  }
+  .brand p{font-size:13px; color:var(--text-muted); max-width:420px;}
+
+  .btn{
+    display:inline-flex; align-items:center; gap:6px; padding:11px 20px; border-radius:10px;
+    font-size:14px; font-weight:600; border:none; cursor:pointer; text-decoration:none;
+    transition:transform .2s, box-shadow .2s; font-family:inherit;
+  }
+  .btn:hover{transform:translateY(-2px);}
+  .btn-primary{background:var(--orange); color:#fff;}
+  .btn-primary:hover{box-shadow:0 8px 24px rgba(255,107,43,.3);}
+  .btn-outline{background:var(--glass); border:1px solid var(--border); color:var(--text);}
+
+  .stats-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:14px; margin-bottom:24px;}
+  .stat-card{
+    background:var(--glass); border:1px solid var(--border); border-radius:var(--radius);
+    padding:16px; display:flex; flex-direction:column; gap:2px;
+  }
+  .stat-num{font-size:26px; font-weight:700; font-family:'Space Grotesk',sans-serif;}
+  .stat-label{font-size:11px; color:var(--text-muted); text-transform:uppercase; letter-spacing:.05em;}
+  #statTotal{color:var(--blue);} #statPending{color:var(--orange);}
+  #statProgress{color:var(--purple);} #statDone{color:var(--green);}
+
+  .filters{display:flex; gap:8px; margin-bottom:20px; flex-wrap:wrap;}
+  .filter-pill{
+    padding:7px 16px; border-radius:100px; font-size:13px; font-weight:500;
+    color:var(--text-muted); background:var(--glass); border:1px solid var(--border);
+    cursor:pointer; transition:all .2s; font-family:inherit;
+  }
+  .filter-pill:hover{color:var(--text);}
+  .filter-pill.active{background:var(--orange); color:#fff; border-color:var(--orange);}
+
+  .task-list{display:flex; flex-direction:column; gap:12px; margin-bottom:8px;}
+  .task-card{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:16px;
+    background:var(--glass); border:1px solid var(--border); border-left:3px solid var(--border);
+    border-radius:var(--radius); padding:16px 18px; transition:transform .2s, border-color .2s;
+  }
+  .task-card:hover{transform:translateX(2px);}
+  .task-card.overdue{border-left-color:var(--red);}
+  .task-card.completed{opacity:.55;}
+
+  .task-main{display:flex; gap:13px; flex:1; min-width:0;}
+  .priority-dot{width:10px; height:10px; border-radius:50%; margin-top:6px; flex-shrink:0;}
+  .priority-dot.high{background:var(--red);}
+  .priority-dot.medium{background:var(--orange);}
+  .priority-dot.low{background:var(--green);}
+
+  .task-text h3{font-size:15px; font-weight:600; margin-bottom:4px; word-break:break-word;}
+  .task-text h3.strike{text-decoration:line-through; color:var(--text-muted);}
+  .task-desc{font-size:13px; color:var(--text-muted); margin-bottom:9px; word-break:break-word;}
+
+  .task-meta{display:flex; gap:7px; flex-wrap:wrap;}
+  .badge{
+    font-size:11px; font-weight:600; padding:4px 10px; border-radius:100px;
+    border:none; cursor:default; font-family:inherit;
+  }
+  .badge.clickable{cursor:pointer;}
+  .badge.clickable:hover{opacity:.8;}
+  .badge.priority-high{background:rgba(239,68,68,.15); color:var(--red);}
+  .badge.priority-medium{background:rgba(255,107,43,.15); color:var(--orange);}
+  .badge.priority-low{background:rgba(34,197,94,.15); color:var(--green);}
+  .badge.status-pending{background:rgba(255,107,43,.15); color:var(--orange);}
+  .badge.status-progress{background:rgba(124,58,237,.15); color:var(--purple);}
+  .badge.status-completed{background:rgba(34,197,94,.15); color:var(--green);}
+  .badge.due{background:var(--bg-3); color:var(--text-muted);}
+  .badge.due.overdue-badge{background:rgba(239,68,68,.15); color:var(--red);}
+
+  .task-actions{display:flex; gap:6px; flex-shrink:0;}
+  .icon-btn{
+    width:32px; height:32px; display:flex; align-items:center; justify-content:center;
+    border-radius:8px; background:var(--bg-3); border:none; cursor:pointer; font-size:14px;
+    transition:background .2s;
+  }
+  .icon-btn:hover{background:var(--border);}
+
+  .empty-state{text-align:center; padding:50px 20px; color:var(--text-muted);}
+  .empty-state p{font-size:15px; margin-bottom:14px;}
+
+  /* Modal */
+  .modal-overlay{
+    display:none; position:fixed; inset:0; background:rgba(0,0,0,.6);
+    align-items:center; justify-content:center; padding:20px; z-index:100;
+  }
+  .modal-overlay.show{display:flex;}
+  .modal-card{
+    background:var(--bg-2); border:1px solid var(--border); border-radius:var(--radius);
+    padding:26px; max-width:460px; width:100%; max-height:90vh; overflow-y:auto;
+  }
+  .modal-card h2{font-family:'Space Grotesk',sans-serif; font-size:19px; margin-bottom:18px;}
+  .form-group{margin-bottom:15px;}
+  .form-group label{display:block; font-size:12px; font-weight:600; color:var(--text-muted); margin-bottom:6px;}
+  .form-group input, .form-group select, .form-group textarea{
+    width:100%; background:var(--bg-3); border:1px solid var(--border); border-radius:8px;
+    padding:10px 13px; color:var(--text); font-size:14px; font-family:inherit; outline:none;
+    transition:border-color .2s;
+  }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus{border-color:var(--orange);}
+  .form-group textarea{resize:vertical;}
+  .form-row3{display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px;}
+  .modal-actions{display:flex; gap:10px; margin-top:20px;}
+  .modal-actions .btn{flex:1; justify-content:center;}
+
+  footer{text-align:center; margin-top:36px; font-size:12px; color:var(--text-muted);}
+  footer a{color:var(--orange); text-decoration:none;}
+
+  @media (max-width:700px){
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .form-row3{grid-template-columns:1fr;}
+    .task-card{flex-direction:column;}
+    .task-actions{align-self:flex-end;}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+
+  <a href="javascript:history.back()" class="back-link">← Back to Portfolio</a>
+
+  <div class="topbar">
+    <div class="brand">
+      <div class="badge-live"><span class="dot"></span> Live Demo</div>
+      <h1>📋 Task Manager</h1>
+      <p>A full CRUD task manager — originally built with PHP &amp; MySQL, ported here to JavaScript so you can try it live, right in your browser.</p>
+    </div>
+    <button class="btn btn-primary" onclick="openModal()">+ New Task</button>
+  </div>
+
+  <div class="stats-grid">
+    <div class="stat-card"><span class="stat-num" id="statTotal">0</span><span class="stat-label">Total Tasks</span></div>
+    <div class="stat-card"><span class="stat-num" id="statPending">0</span><span class="stat-label">Pending</span></div>
+    <div class="stat-card"><span class="stat-num" id="statProgress">0</span><span class="stat-label">In Progress</span></div>
+    <div class="stat-card"><span class="stat-num" id="statDone">0</span><span class="stat-label">Completed</span></div>
+  </div>
+
+  <div class="filters" id="filterRow">
+    <button class="filter-pill active" data-filter="All" onclick="setFilter('All')">All</button>
+    <button class="filter-pill" data-filter="Pending" onclick="setFilter('Pending')">Pending</button>
+    <button class="filter-pill" data-filter="In Progress" onclick="setFilter('In Progress')">In Progress</button>
+    <button class="filter-pill" data-filter="Completed" onclick="setFilter('Completed')">Completed</button>
+  </div>
+
+  <div class="task-list" id="taskList"></div>
+
+  <footer>
+    Demo runs entirely in your browser (no database) · PHP + MySQL source on <a href="https://github.com/KNP2006" target="_blank">GitHub</a> · by Kush Patel
+  </footer>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-card">
+    <h2 id="modalTitle">New Task</h2>
+    <form id="taskForm" onsubmit="saveTask(event)">
+      <input type="hidden" id="editId" />
+      <div class="form-group">
+        <label for="fTitle">Title *</label>
+        <input type="text" id="fTitle" required placeholder="e.g. Finish project report" />
+      </div>
+      <div class="form-group">
+        <label for="fDesc">Description</label>
+        <textarea id="fDesc" rows="3" placeholder="Add more details..."></textarea>
+      </div>
+      <div class="form-row3">
+        <div class="form-group">
+          <label for="fPriority">Priority</label>
+          <select id="fPriority">
+            <option>Low</option><option selected>Medium</option><option>High</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fStatus">Status</label>
+          <select id="fStatus">
+            <option selected>Pending</option><option>In Progress</option><option>Completed</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fDue">Due Date</label>
+          <input type="date" id="fDue" />
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button type="button" class="btn btn-outline" onclick="closeModal()">Cancel</button>
+        <button type="submit" class="btn btn-primary">Save Task</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+/* ============================================
+   Task Manager — In-Browser Demo
+   JS port of the PHP + MySQL version
+   Author: Kush Patel
+   ============================================ */
+
+let tasks = [
+  {id:1, title:"Set up project repo", description:"Initialize Git repository and folder structure for the Task Manager app.", priority:"High", status:"Completed", due_date:"2025-01-10"},
+  {id:2, title:"Design database schema", description:"Plan tables for tasks, including priority and status fields.", priority:"Medium", status:"Completed", due_date:"2025-01-12"},
+  {id:3, title:"Build CRUD operations", description:"Implement add, edit, delete, and list functionality in PHP.", priority:"High", status:"In Progress", due_date:"2025-02-01"},
+  {id:4, title:"Add due date reminders", description:"Highlight tasks that are overdue or due soon.", priority:"Low", status:"Pending", due_date:"2025-02-15"},
+];
+let nextId = 5;
+let currentFilter = 'All';
+
+function statusClass(status){
+  return status === 'In Progress' ? 'status-progress' : 'status-' + status.toLowerCase();
+}
+
+function render(){
+  // Stats
+  const total = tasks.length;
+  const pending = tasks.filter(t => t.status === 'Pending').length;
+  const progress = tasks.filter(t => t.status === 'In Progress').length;
+  const done = tasks.filter(t => t.status === 'Completed').length;
+  document.getElementById('statTotal').textContent = total;
+  document.getElementById('statPending').textContent = pending;
+  document.getElementById('statProgress').textContent = progress;
+  document.getElementById('statDone').textContent = done;
+
+  // Filtered + sorted list
+  let list = currentFilter === 'All' ? tasks.slice() : tasks.filter(t => t.status === currentFilter);
+  const priorityOrder = {High:1, Medium:2, Low:3};
+  list.sort((a,b) => {
+    if(priorityOrder[a.priority] !== priorityOrder[b.priority]) return priorityOrder[a.priority] - priorityOrder[b.priority];
+    return (a.due_date || '9999').localeCompare(b.due_date || '9999');
+  });
+
+  const today = new Date().toISOString().split('T')[0];
+  const listEl = document.getElementById('taskList');
+  listEl.innerHTML = '';
+
+  if(list.length === 0){
+    listEl.innerHTML = `<div class="empty-state"><p>📭 No tasks here yet.</p><button class="btn btn-outline" onclick="openModal()">Add your first task</button></div>`;
+    return;
+  }
+
+  list.forEach(task => {
+    const isOverdue = task.due_date && task.due_date < today && task.status !== 'Completed';
+    const card = document.createElement('div');
+    card.className = `task-card ${statusClass(task.status)} ${task.status === 'Completed' ? 'completed' : ''} ${isOverdue ? 'overdue' : ''}`;
+
+    const dueLabel = task.due_date
+      ? `<span class="badge due ${isOverdue ? 'overdue-badge' : ''}">📅 ${formatDate(task.due_date)}${isOverdue ? ' · Overdue' : ''}</span>`
+      : '';
+
+    card.innerHTML = `
+      <div class="task-main">
+        <span class="priority-dot ${task.priority.toLowerCase()}" title="${task.priority} priority"></span>
+        <div class="task-text">
+          <h3 class="${task.status === 'Completed' ? 'strike' : ''}">${escapeHtml(task.title)}</h3>
+          ${task.description ? `<p class="task-desc">${escapeHtml(task.description)}</p>` : ''}
+          <div class="task-meta">
+            <span class="badge priority-${task.priority.toLowerCase()}">${task.priority}</span>
+            <button class="badge ${statusClass(task.status)} clickable" onclick="cycleStatus(${task.id})" title="Click to advance status">${task.status}</button>
+            ${dueLabel}
+          </div>
+        </div>
+      </div>
+      <div class="task-actions">
+        <button class="icon-btn" onclick="openModal(${task.id})" title="Edit">✏️</button>
+        <button class="icon-btn" onclick="deleteTask(${task.id})" title="Delete">🗑️</button>
+      </div>
+    `;
+    listEl.appendChild(card);
+  });
+}
+
+function formatDate(dateStr){
+  const d = new Date(dateStr + 'T00:00:00');
+  return d.toLocaleDateString('en-US', {month:'short', day:'2-digit', year:'numeric'});
+}
+
+function escapeHtml(str){
+  const div = document.createElement('div');
+  div.textContent = str;
+  return div.innerHTML;
+}
+
+function setFilter(filter){
+  currentFilter = filter;
+  document.querySelectorAll('.filter-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.filter === filter);
+  });
+  render();
+}
+
+function cycleStatus(id){
+  const order = {'Pending':'In Progress', 'In Progress':'Completed', 'Completed':'Pending'};
+  const task = tasks.find(t => t.id === id);
+  if(task) task.status = order[task.status];
+  render();
+}
+
+function deleteTask(id){
+  if(!confirm('Delete this task?')) return;
+  tasks = tasks.filter(t => t.id !== id);
+  render();
+}
+
+function openModal(id){
+  const overlay = document.getElementById('modalOverlay');
+  const form = document.getElementById('taskForm');
+  form.reset();
+
+  if(id){
+    const task = tasks.find(t => t.id === id);
+    document.getElementById('modalTitle').textContent = 'Edit Task';
+    document.getElementById('editId').value = id;
+    document.getElementById('fTitle').value = task.title;
+    document.getElementById('fDesc').value = task.description || '';
+    document.getElementById('fPriority').value = task.priority;
+    document.getElementById('fStatus').value = task.status;
+    document.getElementById('fDue').value = task.due_date || '';
+  } else {
+    document.getElementById('modalTitle').textContent = 'New Task';
+    document.getElementById('editId').value = '';
+  }
+  overlay.classList.add('show');
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('show');
+}
+
+function saveTask(e){
+  e.preventDefault();
+  const id = document.getElementById('editId').value;
+  const data = {
+    title: document.getElementById('fTitle').value.trim(),
+    description: document.getElementById('fDesc').value.trim(),
+    priority: document.getElementById('fPriority').value,
+    status: document.getElementById('fStatus').value,
+    due_date: document.getElementById('fDue').value,
+  };
+  if(!data.title) return;
+
+  if(id){
+    const task = tasks.find(t => t.id === parseInt(id));
+    Object.assign(task, data);
+  } else {
+    tasks.push({id: nextId++, ...data});
+  }
+  closeModal();
+  render();
+}
+
+// Close modal on backdrop click
+document.getElementById('modalOverlay').addEventListener('click', (e) => {
+  if(e.target.id === 'modalOverlay') closeModal();
+});
+
+render();
+</script>
+</body>
+</html>

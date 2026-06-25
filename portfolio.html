@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kush Patel — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="portfolio.css" />
+</head>
+<body>
+
+  <!-- ═══════════════ PHASE 1 : NAVBAR ════════════════ -->
+  <nav id="navbar">
+    <div class="container nav-inner">
+      <a href="#hero" class="nav-brand">Kush<span>.</span>Patel</a>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#education">Education</a></li>
+        <li><a href="#contact" class="nav-contact">Contact</a></li>
+      </ul>
+      <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme" id="theme-icon">🌙</button>
+      <button class="nav-hamburger" onclick="toggleMobileMenu()" aria-label="Menu">☰</button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#about" onclick="toggleMobileMenu()">About</a>
+    <a href="#projects" onclick="toggleMobileMenu()">Projects</a>
+    <a href="#skills" onclick="toggleMobileMenu()">Skills</a>
+    <a href="#education" onclick="toggleMobileMenu()">Education</a>
+    <a href="#contact" onclick="toggleMobileMenu()">Contact</a>
+  </div>
+
+  <!-- ═══════════════ PHASE 2 : HERO ══════════════════ -->
+  <section id="hero" style="padding-top:100px;">
+    <div class="container">
+      <div class="hero-inner">
+        <div class="hero-text" id="about">
+          <div class="hero-eyebrow">
+            <span class="dot"></span> Available for Internships
+          </div>
+          <h1 class="hero-name">
+            Hi, I'm<br>
+            <span class="gradient">Kush Patel</span>
+          </h1>
+          <p class="hero-role"><strong>BCA Student</strong> · Aspiring Full Stack Developer · Cyber &amp; Network Security Enthusiast</p>
+          <p class="hero-bio">
+            Motivated BCA student seeking an internship in web development or cybersecurity to gain practical experience, improve technical skills, and contribute to real-world projects. Based in Anand, Gujarat, India.
+          </p>
+
+          <!-- ═══════════════ PHASE 3 : CTAs ═══════════════ -->
+          <div class="hero-ctas">
+            <a href="#projects" class="btn btn-primary">
+              🚀 Explore My Projects
+            </a>
+            <a href="https://github.com/KNP2006" target="_blank" class="btn btn-outline">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </a>
+            <a href="#" class="btn btn-ghost" download>
+              📄 Resume
+            </a>
+          </div>
+        </div>
+
+        <!-- Photo -->
+        <div class="hero-photo-wrap">
+          <div class="hero-photo-ring">
+            <div class="hero-photo">
+              <div class="hero-photo-placeholder">👨‍💻</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- BG blobs -->
+    <div class="hero-bg-blob blob-1"></div>
+    <div class="hero-bg-blob blob-2"></div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════ PHASE 4 : PROJECTS ══════════════ -->
+  <section id="projects">
+    <div class="container">
+      <span class="section-label reveal">Featured Work</span>
+      <h2 class="section-title reveal">Projects &amp; Interactive<br>Experiences</h2>
+      <p class="section-sub reveal">A selection of things I've built — from web apps to creative experiments.</p>
+
+      <div class="projects-grid">
+
+        <div class="project-card reveal" data-accent="purple">
+          <div class="project-icon">🤖</div>
+          <p class="project-tag">Discord Bot</p>
+          <h3>Discord Moderation Bot</h3>
+          <p>A fully-featured Discord bot with moderation commands, AFK system, nickname management, server utilities, and automation features — built with Python and the Discord API.</p>
+          <div class="project-tech">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">Discord API</span>
+            <span class="tech-pill">Automation</span>
+          </div>
+          <div class="project-links">
+            <a href="https://github.com/KNP2006" target="_blank" class="btn btn-primary" style="background:var(--purple);">GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-accent="orange">
+          <div class="project-icon">📝</div>
+          <p class="project-tag">Web App</p>
+          <h3>Task Manager Web App</h3>
+          <p>A full CRUD task manager with priority levels, status tracking, due-date overdue alerts, and a live dashboard — built with PHP and MySQL.</p>
+          <div class="project-tech">
+            <span class="tech-pill">PHP</span>
+            <span class="tech-pill">MySQL</span>
+            <span class="tech-pill">HTML</span>
+            <span class="tech-pill">CSS</span>
+          </div>
+          <div class="project-links">
+            <a href="task-manager-demo.html" class="btn btn-primary" style="background:var(--orange);">Live Demo</a>
+            <a href="https://github.com/KNP2006" target="_blank" class="btn btn-outline">GitHub</a>
+          </div>
+        </div>
+
+        <div class="project-card reveal" data-accent="blue">
+          <div class="project-icon">🔐</div>
+          <p class="project-tag">Cybersecurity Tool</p>
+          <h3>Password Strength Checker &amp; Generator</h3>
+          <p>A security tool that analyzes password entropy, flags weak patterns and breached passwords, and generates strong random passwords — built with Python.</p>
+          <div class="project-tech">
+            <span class="tech-pill">Python</span>
+            <span class="tech-pill">Cybersecurity</span>
+            <span class="tech-pill">CLI Tool</span>
+          </div>
+          <div class="project-links">
+            <a href="password-checker-demo.html" class="btn btn-primary" style="background:var(--blue);">Live Demo</a>
+            <a href="https://github.com/KNP2006" target="_blank" class="btn btn-outline">GitHub</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════ PHASE 5 : SKILLS ════════════════ -->
+  <section id="skills" style="background: var(--bg);">
+    <div class="container">
+      <span class="section-label reveal">What I Work With</span>
+      <h2 class="section-title reveal">Skills &amp; Technologies</h2>
+      <p class="section-sub reveal">My toolkit — built through projects, courses, and relentless curiosity.</p>
+
+      <div class="skills-grid">
+
+        <!-- Web Dev & Programming -->
+        <div class="skill-card skill-card-orange reveal">
+          <div class="skill-card-header">
+            <div class="skill-card-icon">🎨</div>
+            <div>
+              <h3>Web Development</h3>
+              <p style="font-size:13px;color:var(--text-muted);margin-top:2px;">Frontend & Programming</p>
+            </div>
+          </div>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <span class="skill-item-label"><span>🌐</span> HTML &amp; CSS</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:90%"></div></div>
+            </li>
+            <li class="skill-item">
+              <span class="skill-item-label"><span>🟡</span> JavaScript</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
+            </li>
+            <li class="skill-item">
+              <span class="skill-item-label"><span>⚛️</span> React (Basic)</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:55%"></div></div>
+            </li>
+            <li class="skill-item">
+              <span class="skill-item-label"><span>🐘</span> PHP</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div>
+            </li>
+            <li class="skill-item">
+              <span class="skill-item-label"><span>📱</span> Responsive Design</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Programming Languages -->
+        <div class="skill-card skill-card-purple reveal">
+          <div class="skill-card-header">
+            <div class="skill-card-icon">💻</div>
+            <div>
+              <h3>Programming Languages</h3>
+              <p style="font-size:13px;color:var(--text-muted);margin-top:2px;">Core CS fundamentals</p>
+            </div>
+          </div>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <span class="skill-item-label"><span>🐍</span> Python</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:82%"></div></div>
+            </li>
+            <li class="skill-item">
+              <span class="skill-item-label"><span>⚙️</span> C</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:72%"></div></div>
+            </li>
+            <li class="skill-item">
+              <span class="skill-item-label"><span>➕</span> C++</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:68%"></div></div>
+            </li>
+            <li class="skill-item">
+              <span class="skill-item-label"><span>🟡</span> JavaScript</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:75%"></div></div>
+            </li>
+            <li class="skill-item">
+              <span class="skill-item-label"><span>🐘</span> PHP</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Cyber & Tools -->
+        <div class="skill-card skill-card-blue reveal">
+          <div class="skill-card-header">
+            <div class="skill-card-icon">🔒</div>
+            <div>
+              <h3>Cyber &amp; Tools</h3>
+              <p style="font-size:13px;color:var(--text-muted);margin-top:2px;">Security & dev workflow</p>
+            </div>
+          </div>
+          <ul class="skill-list">
+            <li class="skill-item">
+              <span class="skill-item-label"><span>🌐</span> Networking Fundamentals</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:78%"></div></div>
+            </li>
+            <li class="skill-item">
+              <span class="skill-item-label"><span>🔐</span> Security Basics</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:70%"></div></div>
+            </li>
+            <li class="skill-item">
+              <span class="skill-item-label"><span>🐧</span> Linux Basics</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:65%"></div></div>
+            </li>
+            <li class="skill-item">
+              <span class="skill-item-label"><span>🐙</span> Git &amp; GitHub</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:85%"></div></div>
+            </li>
+            <li class="skill-item">
+              <span class="skill-item-label"><span>🤖</span> AI Tools</span>
+              <div class="skill-bar-wrap"><div class="skill-bar" style="width:80%"></div></div>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════ PHASE 6 : EDUCATION ═════════════ -->
+  <section id="education">
+    <div class="container">
+      <span class="section-label reveal">Background</span>
+      <h2 class="section-title reveal">Education &amp; Certificates</h2>
+      <p class="section-sub reveal">My academic journey and the certifications I've earned along the way.</p>
+
+      <div class="edu-grid">
+
+        <!-- Education -->
+        <div class="edu-block reveal">
+          <h3>🎓 Education</h3>
+          <div class="edu-timeline">
+            <div class="edu-item">
+              <div class="edu-dot-col">
+                <div class="edu-dot"></div>
+              </div>
+              <div class="edu-content">
+                <p class="edu-year">Currently Pursuing</p>
+                <h4>Bachelor of Computer Applications (BCA)</h4>
+                <p>Anand, Gujarat, India</p>
+                <p style="margin-top:6px;font-size:13px;color:var(--text-muted);">Relevant coursework: Web Development, Networking, System Analysis, Database Management, Programming</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Certificates -->
+        <div class="edu-block reveal">
+          <h3>🏅 Certificates</h3>
+          <div class="cert-list">
+            <div class="cert-item">
+              <div class="cert-badge">🌐</div>
+              <div class="cert-info">
+                <h4>Advanced Networking, Virtualization, and Security</h4>
+                <p>Coursera</p>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-badge">🔗</div>
+              <div class="cert-info">
+                <h4>Networking Fundamentals and Physical Networks</h4>
+                <p>Coursera</p>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-badge">📦</div>
+              <div class="cert-info">
+                <h4>Digital Product Management: Modern Fundamentals</h4>
+                <p>Coursera</p>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-badge">🧩</div>
+              <div class="cert-info">
+                <h4>Introduction to Systems Analysis</h4>
+                <p>Coursera</p>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-badge">🤖</div>
+              <div class="cert-info">
+                <h4>Generative AI for Everyone</h4>
+                <p>Coursera</p>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-badge">⚛️</div>
+              <div class="cert-info">
+                <h4>Introduction to Front-End Development</h4>
+                <p>Meta · Coursera</p>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-badge">🐘</div>
+              <div class="cert-info">
+                <h4>Building Web Applications in PHP</h4>
+                <p>Coursera</p>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-badge">🗄️</div>
+              <div class="cert-info">
+                <h4>Building Database Applications in PHP</h4>
+                <p>Coursera</p>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-badge">🎨</div>
+              <div class="cert-info">
+                <h4>HTML &amp; CSS Crash Course</h4>
+                <p>Coursera</p>
+              </div>
+            </div>
+            <div class="cert-item">
+              <div class="cert-badge">🟡</div>
+              <div class="cert-info">
+                <h4>Introduction to HTML, CSS &amp; JavaScript</h4>
+                <p>Coursera</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ═══════════════ PHASE 7 : CONTACT ════════════════ -->
+  <section id="contact" style="background: var(--bg-2);">
+    <div class="container">
+      <span class="section-label reveal">Get In Touch</span>
+      <h2 class="section-title reveal">Let's Build Something<br>Together</h2>
+
+      <div class="contact-grid">
+
+        <!-- Info -->
+        <div class="contact-info reveal">
+          <div class="contact-availability">
+            <span class="dot"></span> Open to Work
+          </div>
+          <p class="contact-tagline">
+            Available for internships, collaborations, frontend development, and creative web projects.
+          </p>
+
+          <ul class="contact-list">
+            <li class="contact-row">
+              <div class="contact-row-icon">👤</div>
+              <div>
+                <div class="contact-row-label">Full Name</div>
+                <div class="contact-row-value">Kush Patel</div>
+              </div>
+            </li>
+            <li class="contact-row">
+              <div class="contact-row-icon">📱</div>
+              <div>
+                <div class="contact-row-label">Phone</div>
+                <div class="contact-row-value">+91 9428902191</div>
+              </div>
+            </li>
+            <li class="contact-row">
+              <div class="contact-row-icon">✉️</div>
+              <div>
+                <div class="contact-row-label">Email</div>
+                <div class="contact-row-value">dnvnatural@gmail.com</div>
+              </div>
+            </li>
+            <li class="contact-row">
+              <div class="contact-row-icon">🐙</div>
+              <div>
+                <div class="contact-row-label">GitHub</div>
+                <div class="contact-row-value">github.com/kushpatel</div>
+                <a href="https://github.com/kushpatel" target="_blank" class="github-redirect-btn">
+                  Visit GitHub ↗
+                </a>
+              </div>
+            </li>
+            <li class="contact-row">
+              <div class="contact-row-icon">💬</div>
+              <div>
+                <div class="contact-row-label">Discord</div>
+                <div class="contact-row-value">kushpatel#0000</div>
+              </div>
+            </li>
+          </ul>
+        </div>
+
+        <!-- Form -->
+        <div class="reveal">
+          <div class="contact-form" id="contactForm">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" placeholder="John" />
+              </div>
+              <div class="form-group">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" placeholder="Doe" />
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <input type="email" id="email" placeholder="john@example.com" />
+            </div>
+            <div class="form-group">
+              <label for="subject">Subject</label>
+              <input type="text" id="subject" placeholder="Project Inquiry / Internship / Collaboration" />
+            </div>
+            <div class="form-group">
+              <label for="message">Message</label>
+              <textarea id="message" rows="5" placeholder="Tell me about your project or idea..."></textarea>
+            </div>
+            <button class="btn-send" onclick="sendMessage()">
+              Send Message ✈️
+            </button>
+            <div class="form-success" id="formSuccess">
+              ✅ Message sent! I'll get back to you soon.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PHASE 8 : FOOTER ════════════════ -->
+  <footer>
+    <div class="container footer-inner">
+      <div class="footer-brand">Kush<span>.</span>Patel</div>
+      <p class="footer-copy">© 2025 Kush Patel · Crafted with ❤️ &amp; lots of ☕</p>
+      <div class="footer-links">
+        <a href="#hero">Top</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="https://github.com/kushpatel" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ═══════════════ SCRIPTS ══════════════════════════ -->
+  <script src="portfolio.js"></script>
